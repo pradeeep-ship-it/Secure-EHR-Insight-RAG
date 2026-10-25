@@ -1,0 +1,16 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: ehr_pgvector
+    environment:
+      POSTGRES_USER: fde_admin
+      POSTGRES_PASSWORD: SecureEHR2026!
+      POSTGRES_DB: ehr_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./src/database/init_extensions.sql:/docker-entrypoint-initdb.d/00_init_extensions.sql:ro
+
+volumes:
+  pgdata:
